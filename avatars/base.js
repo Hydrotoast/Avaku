@@ -1,4 +1,7 @@
 function base() {
+    this._img = new Image();
+    this._img.src = 'avatars/images/base_m.png';
+
     this._type;
 }
 
@@ -8,8 +11,7 @@ base.prototype = {
     },
     draw: function() {
         ctx.save();
-            ctx.fillStyle = "rgba(0, 0, 0)";
-            ctx.fillRect(0, 0, config.WIDTH, config.HEIGHT);
+            ctx.drawImage(this._img, 0, 0, config.WIDTH, config.HEIGHT);
         ctx.restore();
     },
     clear: function() {
