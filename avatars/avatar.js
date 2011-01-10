@@ -1,14 +1,14 @@
-function avatar() {
+function Avatar() {
     this._width = config.WIDTH;
     this._height = config.HEIGHT;
 
     this._layers = [];
-    this._base = new base();
+    this._base = new Base();
 }
 
-avatar.prototype = {
+Avatar.prototype = {
     addLayer: function(layer) {
-        this._layers.push(layer);
+        this._layers.unshift(layer);
     },
     removeLayer: function(layer) {
          this._layers.splice(this._layers.indexOf(layer));

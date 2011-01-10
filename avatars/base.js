@@ -1,11 +1,11 @@
-function base() {
+function Base() {
     this._img = new Image();
     this._img.src = 'avatars/images/base_m.png';
 
     this._type;
 }
 
-base.prototype = {
+Base.prototype = {
     update: function() {
 
     },

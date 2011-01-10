@@ -16,10 +16,28 @@
             canvas = document.getElementById('avatar');
             ctx = canvas.getContext('2d');
 
-            avatar = new avatar();
+            avatar = new Avatar();
         }
 
         function initHandlers() {
+            var items = document.getElementsByClassName('item');
+            var clearForm = document.getElementById('clear_avatar');
+
+            clearForm.onsubmit = function() {
+                for (item in items) {
+                    avatar.removeLayer(new Layer(item.src));
+                }
+                return false;
+            }
+
+            for (var i in items) {
+                items[i].onclick = function(item) {
+                    return function() {
+                        avatar.addLayer(new Layer(item.src));
+                        return false;
+                    }
+                }(items[i]);
+            }
         }
 
         function draw() {
@@ -38,13 +56,20 @@
     <style type="text/css">
         body { margin: 0; padding: 0; }
         #avatar { background-color: #666; }
+        .item { cursor: hand; border: 1px solid #E0E0E0; }
     </style>
 </head>
 <body>
     <canvas id="avatar" width="150" height="270"></canvas>
 
-    <form action="#" method="post" id="update">
-        <input type="submit" name="update" value="Update" />
+    <img src="avatars/images/male/turd_hat.gif" class="item" />
+    <img src="avatars/images/male/pink_shorts.gif" class="item" />
+    <img src="avatars/images/male/elephant.gif" class="item" />
+    <img src="avatars/images/male/blue_shirt.gif" class="item" />
+    <img src="avatars/images/male/black_jacket.gif" class="item" />
+
+    <form action="#" method="post" id="clear_avatar">
+        <input type="submit" name="clear" value="clear" />
     </form>
 </body>
 </html>
