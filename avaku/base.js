@@ -1,5 +1,5 @@
 // This file is part of Avaku
-// Copyright (C) 2010 Gio Carlo Cielo
+// Copyright (C) 2010 Gio Carlo Cielo Borje
 //
 // Avaku is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,11 +30,10 @@ Base.prototype = {
 
     },
     draw: function() {
-        ctx.save();
-            ctx.drawImage(this._img, 0, 0, config.WIDTH, config.HEIGHT);
-        ctx.restore();
-    },
-    clear: function() {
-
+		if (ctx) {
+			ctx.save();
+				ctx.drawImage(this._img, 0, 0, config.WIDTH, config.HEIGHT);
+			ctx.restore();
+		}
     }
 };

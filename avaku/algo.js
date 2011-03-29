@@ -1,5 +1,5 @@
 // This file is part of Avaku
-// Copyright (C) 2010 Gio Carlo Cielo
+// Copyright (C) 2010 Gio Carlo Cielo Borje
 //
 // Avaku is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -73,5 +73,26 @@ var algo = {};
 			i._img.src = i.prev.source();
 			i.prev._img.src = tmp;
 		}
+	};
+	
+	/* General Utilities */
+	/**
+	* Retrieves all DOM elements with the given class
+	* @param{selector} 	Class to search for
+	* @param{parent} 	Parent of the selector to search from
+	* @return Array of matching elements
+	*/
+	_.getByClass = function(selector, parent) {
+		var parent = parent || document
+		var elem = parent.getElementsByTagName('*');
+		var matched = [];
+		
+		for (var i = 0, elemLength = elem.length; i < elemLength; i++) {
+			if (elem[i].className.match(new RegExp(selector))) {
+				matched.push(elem[i]);
+			}
+		}
+		
+		return matched;
 	};
 })(algo);

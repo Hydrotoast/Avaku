@@ -1,5 +1,5 @@
 // This file is part of Avaku
-// Copyright (C) 2010 Gio Carlo Cielo
+// Copyright (C) 2010 Gio Carlo Cielo Borje
 //
 // Avaku is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,20 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-var canvas, ctx;
-var avatar;	
+var canvas = null, 
+	ctx = null,
+	fragment = null;
+var avatar = null,
+	bc_avatar = null;
 
 var Avaku = {};
 (function(avaku) {
 	avaku.initVariables = function() {
 		canvas = document.getElementById('avatar');
-		ctx = canvas.getContext('2d');
+		bc_avatar = document.getElementById('bc_avatar');
 		
-		avatar = new Avatar();
+		if (canvas.getContext) {
+			ctx = canvas.getContext('2d');
+			avatar = new CanvasAvatar();
+		} else {
+			fragment = document.createDocumentFragment();
+			avatar = new DomAvatar();
+		}
 	};
 
 	avaku.initHandlers = function() {
-		var items = document.getElementsByClassName('item');
+		var items = algo.getByClass('item');
+		
 		var save = document.getElementById('save');
 		var clear = document.getElementById('clear');
 		
@@ -38,75 +48,71 @@ var Avaku = {};
 		
 		clear.onclick = function() {
 			for (var i in items) {
-				if (items[i].getElementsByClassName) {
-					var image = items[i].getElementsByClassName('layer')[0].firstChild;
-					if (image != null && image.className.indexOf('equipped') != -1) {
-						image.className = '';
-						avatar.removeLayer(image.src);
-						
-						items[i].getElementsByClassName('remove')[0].style.display = 'none';
-					}
-					avaku.draw();
+				var image = algo.getByClass('layer', items[i])[0].firstChild;
+				if (image != null && image.className.indexOf('equipped') != -1) {
+					image.className = '';
+					avatar.removeLayer(image.src);
+					
+					algo.getByClass('remove', items[i])[0].style.display = 'none';
 				}
+				avaku.draw();
 			}
 			return false;
 		};
 
 		for (var i in items) {
-			if (items[i].getElementsByClassName) {
-				var layer = items[i].getElementsByClassName('layer')[0];
-				var image = layer.firstChild;
-				
-				var remove = items[i].getElementsByClassName('remove')[0];
-				var raise = items[i].getElementsByClassName('raise')[0];
-				var lower = items[i].getElementsByClassName('lower')[0];
-				
-				layer.onclick = function(item) {
-					return function() {
-						var layer = item.getElementsByClassName('layer')[0];
-						var image = layer.firstChild;
-						if (image.className.indexOf('equipped') == -1) {
-							image.className = 'equipped';
-							avatar.addLayer(image.src);
-						
-							item.getElementsByClassName('remove')[0].style.display = 'block';
-						}
-						
+			var layer = algo.getByClass('layer', items[i])[0];
+			var image = layer.firstChild;
+			
+			var remove = algo.getByClass('remove', items[i])[0]
+			var raise = algo.getByClass('raise', items[i])[0]
+			var lower = algo.getByClass('lower', items[i])[0]
+			
+			layer.onclick = function(item) {
+				return function() {
+					var layer = algo.getByClass('layer', item)[0]
+					var image = layer.firstChild;
+					if (image.className.indexOf('equipped') == -1) {
+						image.className = 'equipped';
+						avatar.addLayer(image.src);
+					
+						algo.getByClass('remove', item)[0].style.display = 'block';
+					}
+					
+					avaku.draw();
+					return false;
+				}
+			}(items[i]);
+			
+			remove.onclick = function(image) {
+				return function() {
+					if (image.className.indexOf('equipped') != -1) {
+						image.className = '';
+					
+						this.style.display = 'none';
+						avatar.removeLayer(image.src);
 						avaku.draw();
 						return false;
 					}
-				}(items[i]);
-				
-				remove.onclick = function(image) {
+				}
+			}(image);
+			
+			if (raise != null && lower != null) {
+				raise.onclick = function(image) {
 					return function() {
-						if (image.className.indexOf('equipped') != -1) {
-							image.className = '';
-						
-							this.style.display = 'none';
-							avatar.removeLayer(image.src);
-							avaku.draw();
-							return false;
-						}
+						algo.raiseLayer(avatar, image.src);
+						avaku.draw();
+						return false;
 					}
 				}(image);
 				
-				if (raise != null && lower != null) {
-					raise.onclick = function(image) {
-						return function() {
-							algo.raiseLayer(avatar, image.src);
-							avaku.draw();
-							return false;
-						}
-					}(image);
-					
-					lower.onclick = function(image) {
-						return function() {
-							algo.lowerLayer(avatar, image.src);
-							avaku.draw();
-							return false;
-						}
-					}(image);
-				}
+				lower.onclick = function(image) {
+					return function() {
+						algo.lowerLayer(avatar, image.src);
+						avaku.draw();
+						return false;
+					}
+				}(image);
 			}
 		}
 	};

@@ -1,123 +1,155 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="avaku/config.js"></script>
-	<script type="text/javascript" src="avaku/algo.js"></script>
-    <script type="text/javascript" src="avaku/avatar.js"></script>
-    <script type="text/javascript" src="avaku/base.js"></script>
-    <script type="text/javascript" src="avaku/layer.js"></script>
-    <script type="text/javascript" src="avaku/avaku.js"></script>
+<title>Avaku | JavaSript Avatar Customization Engine</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="avaku/config.js"></script>
+<script type="text/javascript" src="avaku/linkedlist.js"></script>
+<script type="text/javascript" src="avaku/algo.js"></script>
+<script type="text/javascript" src="avaku/avatar.js"></script>
+<script type="text/javascript" src="avaku/base.js"></script>
+<script type="text/javascript" src="avaku/layer.js"></script>
+<script type="text/javascript" src="avaku/avaku.js"></script>
 
-	<script type="text/javascript">
-		window.onload = Avaku.init;
-	</script>
+<script type="text/javascript">
+	window.onload = Avaku.init;
+</script>
+
+<style type="text/css">
+	body { 
+		margin: 0; 
+		padding: 0; 
+		background-color: #F6F6F6; 
+		font: 14px/1.7 Arial, Verdana, sans-serif; 
+		text-align: center; 
+	}
 	
-    <style type="text/css">
-        body { margin: 0; padding: 0; font: 14px/1.7 Arial, Verdana, sans-serif; text-align: center; }
-		#wrap { width: 800px; margin: 20px auto; text-align: left; }
-		
-		h1, h2 { margin: 1em 0 0 0; }
-		p { margin: 1em 0; }
-		code { margin-right: 6px; padding: 1px 6px; background-color: #EEEEEE; }
-		
-		#avatars { float: left; width: 350px; }
-        #avatar { background-color: #666; }
-
-		#about {
-			float: right;
-			width: 450px;
-		}
-		#author { font-size: 12px; }
-		
-		#options {
-			clear: both;
-			padding: 10px 0;
-		}
-		
-		#save:link, #save:visited, 
-		#clear:link, #clear:visited {
-			padding: 6px 8px;
-			background-color: #F0F0F0;
-			border: 1px solid #C0C0C0;
-			color: #559955;
-			border-radius: 5px;
-		}
-		
-		#save:hover, #clear:hover {
-			background-color: #66AA66;
-			border-color: #336633;
-			color: #FFF;
-		}
-		
-        .item {
-            display: inline-block;
-			position: relative;
-            height: 270px;
-            width: 150px;
-			margin-right: 6px;
-			overflow: hidden;
-			background-color: #F6F6F6;
-			border: 1px solid #E0E0E0;
-			border-radius: 5px;
-		}
-		.item .equipped { background-color: #FFFCEF; }
-		.item:last-child { margin-right: 0; }
-		
-		a {
-			text-decoration: none;
-		}
-		
-		a.remove, a.raise, a.lower {
-			display: inline-block;
-			position: absolute;
-			top: 3px;
-			padding: 0 6px;
-			background-color: #EEEEEE;
-			border: 1px solid #E0E0E0;
-			font-family: Consolas, sans-serif;
-			border-radius: 0px;
-		}
-		a.remove:hover, a.raise:hover, a.lower:hover {
-			box-shadow: 0 0 2px #606060;
-		}
-		
-		a.remove { 
-			display: none; 
-			right: 55px; 
-			background-color: #FF9999; 
-			border: 1px solid #990000; 
-			color: #990000;
-		}
-		a.remove:hover, a.remove:active {
-			background-color: #CC6666; 
-			border-color: #660000; 
-			color: #330000;
-		}
-		
-		a.raise { right: 29px; }
-		a.raise:hover, a.raise:active {
-			background-color: #DDEEDD;
-			border: 1px solid #006600;
-			color: #003300;
-		}
-		
-		a.lower { right: 3px; }
-		a.lower:hover, a.lower:active {
-			background-color: #DDDDEE;
-			border: 1px solid #000066;
-			color: #000033;
-		}
-    </style>
+	#wrap { 
+		width: 860px; 
+		margin: 0 auto; 
+		padding: 30px; 
+		background-color: #FFFFFF; 
+		border: solid #EEEEEE;
+		border-width: 0 1px;
+		text-align: left;
+	}
+	
+	h1, h2 { margin: 1em 0 0 0; }
+	p { margin: 1em 0; }
+	code { margin-right: 6px; padding: 1px 6px; background-color: #EEEEEE; }
+	
+	#avatars { float: left; width: 200px; padding-right: 30px; }
+	
+	#avatars #compiled { float: right; }
+	#avatars #dom_compiled { float: right; position: relative; }
+	#avatars #dom_compiled img { position: absolute; top: 0; left: 0; }
+	
+	#avatar, #bc_avatar { position: relative; }
+	#bc_avatar img { position: absolute; top: 0; left: 0; }
+	
+	#about {
+		float: right;
+		width: 450px;
+	}
+	
+	#author { font-size: 12px; }
+	
+	#options {
+		clear: both;
+		padding: 10px 0;
+	}
+	
+	#inventory { clear: both; }
+	#instructions { clear: both; padding-top: 20px; }
+	
+	#save:link, #save:visited, 
+	#clear:link, #clear:visited {
+		padding: 6px 8px;
+		background-color: #F0F0F0;
+		border: 1px solid #C0C0C0;
+		color: #559955;
+		border-radius: 5px;
+	}
+	
+	#save:hover, #clear:hover {
+		background-color: #66AA66;
+		border-color: #336633;
+		color: #FFF;
+	}
+	
+	.item {
+		display: block;
+		float: left;
+		position: relative;
+		height: 270px;
+		width: 150px;
+		margin-right: 15px;
+		overflow: hidden;
+		background-color: #F6F6F6;
+		border: 1px solid #E0E0E0;
+		border-radius: 5px;
+	}
+	.item .equipped { background-color: #FFFCEF; }
+	.item:last-child { margin-right: 0; }
+	
+	.item .layer img { border: 0; }
+	
+	a { text-decoration: none; }
+	
+	a.remove, a.raise, a.lower {
+		display: inline-block;
+		position: absolute;
+		top: 3px;
+		padding: 0 6px;
+		background-color: #EEEEEE;
+		border: 1px solid #E0E0E0;
+		font-family: Consolas, sans-serif;
+		border-radius: 0px;
+	}
+	a.remove:hover, a.raise:hover, a.lower:hover {
+		box-shadow: 0 0 2px #606060;
+	}
+	
+	a.remove { 
+		display: none; 
+		right: 55px; 
+		background-color: #FF9999; 
+		border: 1px solid #990000; 
+		color: #990000;
+	}
+	a.remove:hover, a.remove:active {
+		background-color: #CC6666; 
+		border-color: #660000; 
+		color: #330000;
+	}
+	
+	a.raise { right: 29px; }
+	a.raise:hover, a.raise:active {
+		background-color: #DDEEDD;
+		border: 1px solid #006600;
+		color: #003300;
+	}
+	
+	a.lower { right: 3px; }
+	a.lower:hover, a.lower:active {
+		background-color: #DDDDEE;
+		border: 1px solid #000066;
+		color: #000033;
+	}
+</style>
 </head>
 <body>
 <div id="wrap">
 	
 	<div id="avatars">
-		<canvas id="avatar" width="150" height="270"></canvas>
-		<img id="compiled" src="images/base_f.png" width="150" height="270" />
+		<canvas id="avatar" width="150" height="270">
+			<div id="bc_avatar"></div>
+		</canvas>
+		<div id="dom_compiled">
+			<img id="compiled" src="images/base_f.png" width="150" height="270" />
+		</div>
 	</div>
+	
 	
 	<div id="about">
 		<h1>Avaku</h1>
@@ -135,7 +167,7 @@
 	<h2>Inventory</h2>
 	<p>Equip some items. Remove them. Control the layering order.</p>
 	
-	<div class="inventory">
+	<div id="inventory">
 		<div class="item">
 			<a href="#" class="remove">x</a><a href="#" class="raise">+</a><a href="#" class="lower">-</a>
 			<a href="#" class="layer"><img src="images/male/turd_hat.gif" /></a>
@@ -162,7 +194,7 @@
 		</div>
 	</div>
 	
-	<p>
+	<p id="instructions">
 		<code>+</code> raises the layer<br />
 		<code>-</code> lowers the layer<br />
 		<code>x</code> removes the layer

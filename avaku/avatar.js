@@ -1,5 +1,5 @@
 // This file is part of Avaku
-// Copyright (C) 2010 Gio Carlo Cielo
+// Copyright (C) 2010 Gio Carlo Cielo Borje Borje
 //
 // Avaku is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,78 +14,82 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-/// Doubly Linked List of Layers
-function Avatar() {
+function CanvasAvatar() {
     this._width = config.WIDTH;
     this._height = config.HEIGHT;
 
 	this.base = new Base();
-    this.head = null;
-    this.tail = null;
-	this.length = 0;
 }
 
-Avatar.prototype = {
-	findLayer: function(src) {
-		for (var iter = this.head;
-			iter != null;
-			iter = iter.next) {
-			if (iter.source() == src) {
-				return iter;
-			}
-		}
-	},
-    addLayer: function(src) {
-		var layer = new Layer(src);
-		layer.prev = null;
-		layer.next = null;
+CanvasAvatar.prototype = new LinkedList();
+
+CanvasAvatar.prototype.render = function() {
+	this.clear();
+
+	this.base.draw();
+
+	algo.for_each (avatar, function(layer) {
+		layer.draw();
+	});
+};
+
+CanvasAvatar.prototype.clear = function() {
+	canvas.width = canvas.width;
+};
 	
-		if (this.length == 0) {
-			this.head = layer;
-			this.tail = layer;
-		} else {
-			this.tail.next = layer;
-			layer.prev = this.tail;
-			this.tail = layer;
-		}
-		
-		this.length++;
-    },
-    removeLayer: function(src) {
-		if (src == this.head.source()) {
-			this.head = this.head.next;
-			
-			if (this.head != null)
-				this.head.prev = null;
-			
-		} else if (src == this.tail.source()) {
-			this.tail = this.tail.prev;
-			
-			if (this.tail != null)
-				this.tail.next = null;
-			
-		} else {
-			var layer = this.findLayer(src);
-			layer.prev.next = layer.next;
-			layer.next.prev = layer.prev;
-		}
-		
-		this.length--;
-    },
-    render: function() {
-        this.clear();
+CanvasAvatar.prototype.compile = function() {
+	var compiled = document.getElementById('compiled');
+	compiled.src = canvas.toDataURL(config.COMPILE_FORMAT);
+};
 
-        this.base.draw();
+function DomAvatar() {
+    this._width = config.WIDTH;
+    this._height = config.HEIGHT;
 
-        algo.for_each (avatar, function(layer) {
-            layer.draw();
-		});
-    },
-    clear: function() {
-        canvas.width = canvas.width;
-    },
-    compile: function() {
-        var compiled = document.getElementById('compiled');
-		compiled.src = canvas.toDataURL(config.COMPILE_FORMAT);
-    },
+	this.base = new Base();
+}
+
+DomAvatar.prototype = new LinkedList();
+
+DomAvatar.prototype.render = function() {
+	this.clear();
+
+	var img = document.createElement('img');
+	img.src = this.base._img.src;
+	fragment.appendChild(img);
+
+	algo.for_each(avatar, function(layer) {
+		var img = document.createElement('img');
+		img.src = layer._img.src;
+		fragment.appendChild(img);
+	});
+
+	bc_avatar.appendChild(fragment.cloneNode(true));
+	
+	while (fragment.hasChildNodes())
+		fragment.removeChild(fragment.lastChild);
+};
+
+DomAvatar.prototype.clear = function() {
+	while (bc_avatar.hasChildNodes()) 
+		bc_avatar.removeChild(bc_avatar.lastChild);
+};
+	
+DomAvatar.prototype.compile = function() {
+	var compiled = document.getElementById('dom_compiled');
+	
+	while (compiled.hasChildNodes()) 
+		compiled.removeChild(compiled.lastChild);
+
+	var img = document.createElement('img');
+	img.src = this.base._img.src;
+	fragment.appendChild(img);
+
+	algo.for_each(avatar, function(layer) {
+		var img = document.createElement('img');
+		img.src = layer._img.src;
+		fragment.appendChild(img);
+	});
+
+	compiled.appendChild(fragment.cloneNode(true));
 };

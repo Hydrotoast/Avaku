@@ -40,11 +40,10 @@ Layer.prototype = {
 
     },
     draw: function() {
-        ctx.save();
-            ctx.drawImage(this._img, 0, 0, config.WIDTH, config.HEIGHT);
-        ctx.restore();
-    },
-    clear: function() {
-        
+		if (ctx) {
+			ctx.save();
+				ctx.drawImage(this._img, 0, 0, config.WIDTH, config.HEIGHT);
+			ctx.restore();
+		}
     }
 };
