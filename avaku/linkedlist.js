@@ -32,8 +32,6 @@ LinkedList.prototype = {
 	},
     addLayer: function(src) {
 		var layer = new Layer(src);
-		layer.prev = null;
-		layer.next = null;
 	
 		if (this.length == 0) {
 			this.head = layer;
@@ -66,5 +64,16 @@ LinkedList.prototype = {
 		}
 		
 		this.length--;
-    }
+    },
+	jsonify: function() {
+		var layers = {
+			items: []
+		};
+		
+		algo.for_each(avatar, function(layer) {
+			layers.items.push({ id: layer.id, type: layer.type });
+		});
+		
+		return JSON.stringify(layers);
+	}
 };

@@ -21,6 +21,9 @@ var config = {
     WIDTH: 150,
 	EXT: 'png',
 	
+	// Server Settings
+	AVATAR_SCRIPT_PATH: '',
+	
 	// Advanced Settings
 	COMPILE_FORMAT: 'image/png; base64'
 }

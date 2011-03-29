@@ -20,12 +20,12 @@
 */
 function Layer(src) {
 	// Functional
-	this.prev;
-	this.next;
+	this.prev = null;
+	this.next = null;
 	
 	// Remote Data
-    this._id;
-    this._type;
+    this.id = 2320;
+    this.type = 'm';
 	
     // Local Data
 	this._img = new Image();

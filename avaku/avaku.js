@@ -120,6 +120,14 @@ var Avaku = {};
 	avaku.draw = function() {
 		avatar.render();
 	};
+	
+	avaku.apply = function() {
+		var json = avatar.jsonify();
+		
+		// TODO Implement AJAX request (with IE compatibility)
+		// Send AJAX requests to config.AVATAR_SCRIPT_PATH
+		// Responses: 1 success; 0 failure
+	};
 
 	avaku.init = function() {
 		avaku.initVariables();
