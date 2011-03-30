@@ -23,8 +23,8 @@ var avatar = null,
 var Avaku = {};
 (function(avaku) {
 	avaku.initVariables = function() {
-		canvas = document.getElementById('avatar');
-		bc_avatar = document.getElementById('bc_avatar');
+		canvas = document.getElementById(config.AVATAR_ID);
+		bc_avatar = document.getElementById(config.BC_AVATAR_ID);
 		
 		if (canvas.getContext) {
 			ctx = canvas.getContext('2d');
@@ -36,10 +36,10 @@ var Avaku = {};
 	};
 
 	avaku.initHandlers = function() {
-		var items = algo.getByClass('item');
+		var items = algo.getByClass(config.ITEM_CLASS);
 		
-		var save = document.getElementById('save');
-		var clear = document.getElementById('clear');
+		var save = document.getElementById(config.SAVE_ID);
+		var clear = document.getElementById(config.CLEAR_ID);
 		
 		save.onclick = function() {
 			avatar.compile();
@@ -48,12 +48,12 @@ var Avaku = {};
 		
 		clear.onclick = function() {
 			for (var i in items) {
-				var image = algo.getByClass('layer', items[i])[0].firstChild;
-				if (image != null && image.className.indexOf('equipped') != -1) {
+				var image = algo.getByClass(config.LAYER_CLASS, items[i])[0].firstChild;
+				if (image != null && image.className.indexOf(config.EQUIPPED_CLASS) != -1) {
 					image.className = '';
 					avatar.removeLayer(image.src);
 					
-					algo.getByClass('remove', items[i])[0].style.display = 'none';
+					algo.getByClass(config.REMOVE_CLASS, items[i])[0].style.display = 'none';
 				}
 				avaku.draw();
 			}
@@ -61,22 +61,22 @@ var Avaku = {};
 		};
 
 		for (var i in items) {
-			var layer = algo.getByClass('layer', items[i])[0];
+			var layer = algo.getByClass(config.LAYER_CLASS, items[i])[0];
 			var image = layer.firstChild;
 			
-			var remove = algo.getByClass('remove', items[i])[0]
-			var raise = algo.getByClass('raise', items[i])[0]
-			var lower = algo.getByClass('lower', items[i])[0]
+			var remove = algo.getByClass(config.REMOVE_CLASS, items[i])[0]
+			var raise = algo.getByClass(config.RAISE_CLASS, items[i])[0]
+			var lower = algo.getByClass(config.LOWER_CLASS, items[i])[0]
 			
 			layer.onclick = function(item) {
 				return function() {
-					var layer = algo.getByClass('layer', item)[0]
+					var layer = algo.getByClass(config.LAYER_CLASS, item)[0]
 					var image = layer.firstChild;
-					if (image.className.indexOf('equipped') == -1) {
-						image.className = 'equipped';
+					if (image.className.indexOf(config.EQUIPPED_CLASS) == -1) {
+						image.className = config.EQUIPPED_CLASS;
 						avatar.addLayer(image.src);
 					
-						algo.getByClass('remove', item)[0].style.display = 'block';
+						algo.getByClass(config.REMOVE_CLASS, item)[0].style.display = 'block';
 					}
 					
 					avaku.draw();
@@ -86,7 +86,7 @@ var Avaku = {};
 			
 			remove.onclick = function(image) {
 				return function() {
-					if (image.className.indexOf('equipped') != -1) {
+					if (image.className.indexOf(config.EQUIPPED_CLASS) != -1) {
 						image.className = '';
 					
 						this.style.display = 'none';

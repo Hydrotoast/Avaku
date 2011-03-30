@@ -14,6 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+* Canvas implementation of avatars
+* Benefits: Decoupled from CSS and fast algorithms with data-urls
+* Concerns: Backwards compatibility
+*/
 function CanvasAvatar() {
     this._width = config.WIDTH;
     this._height = config.HEIGHT;
@@ -42,6 +47,11 @@ CanvasAvatar.prototype.compile = function() {
 	compiled.src = canvas.toDataURL(config.COMPILE_FORMAT);
 };
 
+/**
+* DOM implementation of avatars
+* Benefits: Cross-compatible
+* Concerns: Strongly coupled with CSS and slow algorithms
+*/
 function DomAvatar() {
     this._width = config.WIDTH;
     this._height = config.HEIGHT;
