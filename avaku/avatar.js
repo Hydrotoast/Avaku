@@ -92,12 +92,14 @@ DomAvatar.prototype.compile = function() {
 		compiled.removeChild(compiled.lastChild);
 
 	var img = document.createElement('img');
-	img.src = this.base._img.src;
+	img = this.base._img;
+
 	fragment.appendChild(img);
 
 	algo.for_each(avatar, function(layer) {
 		var img = document.createElement('img');
-		img.src = layer._img.src;
+		img = layer._img;
+		img.style.position = 'absolute';
 		fragment.appendChild(img);
 	});
 

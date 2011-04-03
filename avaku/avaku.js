@@ -32,6 +32,7 @@ var Avaku = {};
 		} else {
 			fragment = document.createDocumentFragment();
 			avatar = new DomAvatar();
+			bc_avatar.style.position = 'relative';
 		}
 	};
 
@@ -51,7 +52,7 @@ var Avaku = {};
 				var image = algo.getByClass(config.LAYER_CLASS, items[i])[0].firstChild;
 				if (image != null && image.className.indexOf(config.EQUIPPED_CLASS) != -1) {
 					image.className = '';
-					avatar.removeLayer(image.src);
+					avatar.removeLayer(image.alt);
 					
 					algo.getByClass(config.REMOVE_CLASS, items[i])[0].style.display = 'none';
 				}
@@ -100,7 +101,7 @@ var Avaku = {};
 			if (raise != null && lower != null) {
 				raise.onclick = function(image) {
 					return function() {
-						algo.raiseLayer(avatar, image.src);
+						algo.raiseLayer(avatar, image.alt);
 						avaku.draw();
 						return false;
 					}
@@ -108,7 +109,7 @@ var Avaku = {};
 				
 				lower.onclick = function(image) {
 					return function() {
-						algo.lowerLayer(avatar, image.src);
+						algo.lowerLayer(avatar, image.alt);
 						avaku.draw();
 						return false;
 					}

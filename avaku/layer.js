@@ -30,6 +30,10 @@ function Layer(src) {
     // Local Data
 	this._img = new Image();
     this._img.src = src;
+	this._img.style.position = 'absolute';
+	this._img.style.width = 130;
+	this._img.style.left = 0;
+	this._img.style.top = 0;
 }
 
 Layer.prototype = {

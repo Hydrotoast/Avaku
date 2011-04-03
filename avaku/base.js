@@ -23,6 +23,9 @@ function Base(type) {
 
     this._img = new Image();
     this._img.src = config.IMAGE_PATH + '/base_' + this._type + '.' + config.EXT;
+	this._img.style.position = 'absolute';
+	this._img.style.left = 0;
+	this._img.style.top = 0;
 }
 
 Base.prototype = {

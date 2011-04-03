@@ -49,20 +49,24 @@ LinkedList.prototype = {
 		this.length++;
     },
     removeLayer: function(src) {
-		if (src == this.head.source()) {
+		// Get absolute path of image source
+		var img = new Image;
+		img.src = src;
+		
+		if (img.src == this.head.source()) {
 			this.head = this.head.next;
 			
 			if (this.head != null)
 				this.head.prev = null;
 			
-		} else if (src == this.tail.source()) {
+		} else if (img.src == this.tail.source()) {
 			this.tail = this.tail.prev;
 			
 			if (this.tail != null)
 				this.tail.next = null;
 			
 		} else {
-			var layer = this.findLayer(src);
+			var layer = this.findLayer(img.src);
 			layer.prev.next = layer.next;
 			layer.next.prev = layer.prev;
 		}
