@@ -74,7 +74,7 @@ var Avaku = {};
 					var image = layer.firstChild;
 					if (image.className.indexOf(config.EQUIPPED_CLASS) == -1) {
 						image.className = config.EQUIPPED_CLASS;
-						avatar.addLayer(image.src);
+						avatar.addLayer(image.alt);
 					
 						algo.getByClass(config.REMOVE_CLASS, item)[0].style.display = 'block';
 					}
@@ -90,7 +90,7 @@ var Avaku = {};
 						image.className = '';
 					
 						this.style.display = 'none';
-						avatar.removeLayer(image.src);
+						avatar.removeLayer(image.alt);
 						avaku.draw();
 						return false;
 					}
