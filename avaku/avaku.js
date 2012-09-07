@@ -124,10 +124,15 @@ var Avaku = {};
 	
 	avaku.apply = function() {
 		var json = avatar.jsonify();
-		
-		// TODO Implement AJAX request (with IE compatibility)
-		// Send AJAX requests to config.AVATAR_SCRIPT_PATH
-		// Responses: 1 success; 0 failure
+		var xhr = (window.XMLHttpRequest) ? new XMLHttpRequest : new ActiveXObject('Microsoft.XMLHTTP');
+		xhr.open('POST', config.AVATAR_SCRIPT_PATH, false);
+		xhr.addEventListener('load' function() {
+			return xhr.status === 200;
+		}, false);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-url-form-urlencoded');
+		xhr.setRequestHeader('Content-Length', json.length);
+		xhr.setRequestHeader('Connection', 'close');
+		xhr.send(json);
 	};
 
 	avaku.init = function() {
