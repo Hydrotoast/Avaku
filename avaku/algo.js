@@ -26,8 +26,8 @@ var algo = {};
 		for (var iter = avatar.head; 
 			iter != null; 
 			iter = iter.next) {
-            result = fn(iter);
-        }
+				result = fn(iter);
+			}
 	};
 
 	/* Modifying Sequence Operations */

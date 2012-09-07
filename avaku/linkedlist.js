@@ -34,7 +34,7 @@ LinkedList.prototype = {
 			}
 		}
 	},
-    addLayer: function(src) {
+	addLayer: function(src) {
 		var layer = new Layer(src);
 	
 		if (this.length == 0) {
@@ -47,8 +47,8 @@ LinkedList.prototype = {
 		}
 		
 		this.length++;
-    },
-    removeLayer: function(src) {
+	},
+	removeLayer: function(src) {
 		// Get absolute path of image source
 		var img = new Image;
 		img.src = src;
@@ -72,7 +72,7 @@ LinkedList.prototype = {
 		}
 		
 		this.length--;
-    },
+	},
 	jsonify: function() {
 		var layers = {
 			items: []

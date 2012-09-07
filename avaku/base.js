@@ -21,22 +21,22 @@
 function Base(type) {
 	this._type = type || 'm';
 
-    this._img = new Image();
-    this._img.src = config.IMAGE_PATH + '/base_' + this._type + '.' + config.EXT;
+	this._img = new Image();
+	this._img.src = config.IMAGE_PATH + '/base_' + this._type + '.' + config.EXT;
 	this._img.style.position = 'absolute';
 	this._img.style.left = 0;
 	this._img.style.top = 0;
 }
 
 Base.prototype = {
-    update: function() {
+	update: function() {
 
-    },
-    draw: function() {
+	},
+	draw: function() {
 		if (ctx) {
 			ctx.save();
 				ctx.drawImage(this._img, 0, 0, config.WIDTH, config.HEIGHT);
 			ctx.restore();
 		}
-    }
+	}
 };

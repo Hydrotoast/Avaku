@@ -40,14 +40,14 @@ Layer.prototype = {
 	source: function() {
 		return this._img.src;
 	},
-    update: function() {
+	update: function() {
 
-    },
-    draw: function() {
+	},
+	draw: function() {
 		if (ctx) {
 			ctx.save();
 				ctx.drawImage(this._img, 0, 0, config.WIDTH, config.HEIGHT);
 			ctx.restore();
 		}
-    }
+	}
 };
