@@ -42,12 +42,12 @@ var Avaku = {};
 		var save = document.getElementById(config.SAVE_ID);
 		var clear = document.getElementById(config.CLEAR_ID);
 		
-		save.onclick = function() {
+		save.addEventListener('click', function() {
 			avatar.compile();
 			return false;
-		};
+		});
 		
-		clear.onclick = function() {
+		clear.addEventListener('click', function() {
 			for (var i in items) {
 				var image = algo.getByClass(config.LAYER_CLASS, items[i])[0].firstChild;
 				if (image != null && image.className.indexOf(config.EQUIPPED_CLASS) != -1) {
@@ -59,62 +59,69 @@ var Avaku = {};
 				avaku.draw();
 			}
 			return false;
-		};
+		});
 
-		for (var i in items) {
-			var layer = algo.getByClass(config.LAYER_CLASS, items[i])[0];
-			var image = layer.firstChild;
-			
-			var remove = algo.getByClass(config.REMOVE_CLASS, items[i])[0]
-			var raise = algo.getByClass(config.RAISE_CLASS, items[i])[0]
-			var lower = algo.getByClass(config.LOWER_CLASS, items[i])[0]
-			
-			layer.onclick = function(item) {
-				return function() {
-					var layer = algo.getByClass(config.LAYER_CLASS, item)[0]
-					var image = layer.firstChild;
-					if (image.className.indexOf(config.EQUIPPED_CLASS) == -1) {
-						image.className = config.EQUIPPED_CLASS;
-						avatar.addLayer(image.alt);
-					
-						algo.getByClass(config.REMOVE_CLASS, item)[0].style.display = 'block';
-					}
-					
+		for (var i in items)
+			avaku.bindItemHandler(items, i);
+	};
+	
+	avaku.bindItemHandler = function(items, i) {
+		var layer = algo.getByClass(config.LAYER_CLASS, items[i])[0];
+		var image = layer.firstChild;
+		
+		var remove = algo.getByClass(config.REMOVE_CLASS, items[i])[0]
+		var raise = algo.getByClass(config.RAISE_CLASS, items[i])[0]
+		var lower = algo.getByClass(config.LOWER_CLASS, items[i])[0]
+		
+		// EquipItem event handler
+		layer.addEventListener('click', function(item) {
+			return function() {
+				var layer = algo.getByClass(config.LAYER_CLASS, item)[0]
+				var image = layer.firstChild;
+				if (image.className.indexOf(config.EQUIPPED_CLASS) == -1) {
+					image.className = config.EQUIPPED_CLASS;
+					avatar.addLayer(image.alt);
+				
+					algo.getByClass(config.REMOVE_CLASS, item)[0].style.display = 'block';
+				}
+				
+				avaku.draw();
+				return false;
+			}
+		}(items[i]));
+		
+		// UnequipItem event handler
+		remove.addEventListener('click', function(image) {
+			return function() {
+				if (image.className.indexOf(config.EQUIPPED_CLASS) != -1) {
+					image.className = '';
+				
+					this.style.display = 'none';
+					avatar.removeLayer(image.alt);
 					avaku.draw();
 					return false;
 				}
-			}(items[i]);
-			
-			remove.onclick = function(image) {
-				return function() {
-					if (image.className.indexOf(config.EQUIPPED_CLASS) != -1) {
-						image.className = '';
-					
-						this.style.display = 'none';
-						avatar.removeLayer(image.alt);
-						avaku.draw();
-						return false;
-					}
-				}
-			}(image);
-			
-			if (raise != null && lower != null) {
-				raise.onclick = function(image) {
-					return function() {
-						algo.raiseLayer(avatar, image.alt);
-						avaku.draw();
-						return false;
-					}
-				}(image);
-				
-				lower.onclick = function(image) {
-					return function() {
-						algo.lowerLayer(avatar, image.alt);
-						avaku.draw();
-						return false;
-					}
-				}(image);
 			}
+		}(image));
+		
+		if (raise != null && lower != null) {
+			// RaiseLayer event handler
+			raise.addEventListener('click', function(image) {
+				return function() {
+					algo.raiseLayer(avatar, image.alt);
+					avaku.draw();
+					return false;
+				}
+			}(image));
+			
+			// LowerLayer event handler
+			lower.addEventListener('click', function(image) {
+				return function() {
+					algo.lowerLayer(avatar, image.alt);
+					avaku.draw();
+					return false;
+				}
+			}(image));
 		}
 	};
 
@@ -126,7 +133,7 @@ var Avaku = {};
 		var json = avatar.jsonify();
 		var xhr = (window.XMLHttpRequest) ? new XMLHttpRequest : new ActiveXObject('Microsoft.XMLHTTP');
 		xhr.open('POST', config.AVATAR_SCRIPT_PATH, false);
-		xhr.addEventListener('load' function() {
+		xhr.addEventListener('load', function() {
 			return xhr.status === 200;
 		}, false);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-url-form-urlencoded');
