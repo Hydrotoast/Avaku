@@ -19,7 +19,7 @@ var algo = {};
 	/* Non-Modifying Sequence Operations */
 	/** 
 	* Execute a function for each layer
-	* @param{avatar} 	Doubly linked list that contains layers
+	* @param{avatar}	Doubly linked list that contains layers
 	* @param{fn}		Function to execute on each layer
 	*/
 	_.for_each = function(avatar, fn) {
@@ -33,9 +33,9 @@ var algo = {};
 	/* Modifying Sequence Operations */
 	/** 
 	* Swaps the ordinal of layers i and j
-	* @param{avatar} 	Doubly linked list that contains layers
-	* @param{i} 		Source of first layer
-	* @param{j} 		Source of second layer
+	* @param{avatar}	Doubly linked list that contains layers
+	* @param{i}			Source of first layer
+	* @param{j}			Source of second layer
 	*/
 	_.swapLayer = function(avatar, i, j) {
 		var i = avatar.findLayer(i),
@@ -49,7 +49,7 @@ var algo = {};
 	
 	/**
 	* Raises the ordinal of layer i
-	* @param{avatar} 	Doubly linked list that contains layers
+	* @param{avatar}	Doubly linked list that contains layers
 	* @param{i} 		Source of layer to raise
 	*/
 	_.raiseLayer = function(avatar, i) {
@@ -63,7 +63,7 @@ var algo = {};
 	
 	/**
 	* Lowers the ordinal of layer i
-	* @param{avatar} 	Doubly linked list that contains layers
+	* @param{avatar}	Doubly linked list that contains layers
 	* @param{i} 		Source of layer to lower
 	*/
 	_.lowerLayer = function(avatar, i) {
@@ -78,8 +78,8 @@ var algo = {};
 	/* General Utilities */
 	/**
 	* Retrieves all DOM elements with the given class
-	* @param{selector} 	Class to search for
-	* @param{parent} 	Parent of the selector to search from
+	* @param{selector}	Class to search for
+	* @param{parent}	Parent of the selector to search from
 	* @return Array of matching elements
 	*/
 	_.getByClass = function(selector, parent) {
