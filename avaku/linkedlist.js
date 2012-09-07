@@ -26,17 +26,18 @@ function LinkedList() {
 
 LinkedList.prototype = {
 	findLayer: function(src) {
+		// Get absolute path of image source
+		var img = new Image();
+		img.src = src;
 		for (var iter = this.head;
 			iter != null;
-			iter = iter.next) {
-			if (iter.source() == src) {
+			iter = iter.next)
+			if (iter.source() === img.src)
 				return iter;
-			}
-		}
+		return null;
 	},
 	addLayer: function(src) {
 		var layer = new Layer(src);
-	
 		if (this.length == 0) {
 			this.head = layer;
 			this.tail = layer;
@@ -45,43 +46,34 @@ LinkedList.prototype = {
 			layer.prev = this.tail;
 			this.tail = layer;
 		}
-		
 		this.length++;
 	},
 	removeLayer: function(src) {
 		// Get absolute path of image source
-		var img = new Image;
+		var img = new Image();
 		img.src = src;
-		
-		if (img.src == this.head.source()) {
+		if (img.src === this.head.source()) {
 			this.head = this.head.next;
-			
 			if (this.head != null)
 				this.head.prev = null;
-			
-		} else if (img.src == this.tail.source()) {
+		} else if (img.src === this.tail.source()) {
 			this.tail = this.tail.prev;
-			
 			if (this.tail != null)
 				this.tail.next = null;
-			
 		} else {
 			var layer = this.findLayer(img.src);
 			layer.prev.next = layer.next;
 			layer.next.prev = layer.prev;
 		}
-		
 		this.length--;
 	},
 	jsonify: function() {
 		var layers = {
 			items: []
 		};
-		
 		algo.for_each(avatar, function(layer) {
 			layers.items.push({ id: layer.id, type: layer.type });
 		});
-		
 		return JSON.stringify(layers);
 	}
 };

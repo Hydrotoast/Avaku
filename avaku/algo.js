@@ -39,7 +39,7 @@ var algo = {};
 	_.swapLayer = function(avatar, i, j) {
 		var i = avatar.findLayer(i),
 			j = avatar.findLayer(j);
-		if (i === null || j === null)
+		if (i === undefined || j === undefined)
 			throw new Error('Layer arguments cannot be null');
 		i._img.src = j.source();
 		j._img.src = tmp;
@@ -52,7 +52,7 @@ var algo = {};
 	*/
 	_.raiseLayer = function(avatar, i) {
 		var i = avatar.findLayer(i);
-		if (i === null || i.next === null)
+		if (i === undefined || i.next === undefined)
 			throw new Error('Layer arguments cannot be null');
 		var tmp = i.source();
 		i._img.src = i.next.source();
@@ -66,7 +66,7 @@ var algo = {};
 	*/
 	_.lowerLayer = function(avatar, i) {
 		var i = avatar.findLayer(i);
-		if (i === null || i.prev === null)
+		if (i === undefined || i.prev === undefined)
 			throw new Error('Layer arguments cannot be null');
 		var tmp = i.source();
 		i._img.src = i.prev.source();
