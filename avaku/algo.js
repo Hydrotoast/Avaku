@@ -25,9 +25,8 @@ var algo = {};
 	_.for_each = function(avatar, fn) {
 		for (var iter = avatar.head; 
 			iter != null; 
-			iter = iter.next) {
+			iter = iter.next)
 				result = fn(iter);
-			}
 	};
 
 	/* Modifying Sequence Operations */
@@ -40,11 +39,10 @@ var algo = {};
 	_.swapLayer = function(avatar, i, j) {
 		var i = avatar.findLayer(i),
 			j = avatar.findLayer(j);
-		if (i != null && j != null) {
-			var tmp = i.source();
-			i._img.src = j.source();
-			j._img.src = tmp;
-		}
+		if (i === null || j === null)
+			throw new Error('Layer arguments cannot be null');
+		i._img.src = j.source();
+		j._img.src = tmp;
 	};
 	
 	/**
@@ -54,11 +52,11 @@ var algo = {};
 	*/
 	_.raiseLayer = function(avatar, i) {
 		var i = avatar.findLayer(i);
-		if (i != null && i.next != null) {
-			var tmp = i.source();
-			i._img.src = i.next.source();
-			i.next._img.src = tmp;
-		}
+		if (i === null || i.next === null)
+			throw new Error('Layer arguments cannot be null');
+		var tmp = i.source();
+		i._img.src = i.next.source();
+		i.next._img.src = tmp;
 	};
 	
 	/**
@@ -68,11 +66,11 @@ var algo = {};
 	*/
 	_.lowerLayer = function(avatar, i) {
 		var i = avatar.findLayer(i);
-		if (i != null && i.prev != null) {
-			var tmp = i.source();
-			i._img.src = i.prev.source();
-			i.prev._img.src = tmp;
-		}
+		if (i === null || i.prev === null)
+			throw new Error('Layer arguments cannot be null');
+		var tmp = i.source();
+		i._img.src = i.prev.source();
+		i.prev._img.src = tmp;
 	};
 	
 	/* General Utilities */
@@ -86,13 +84,9 @@ var algo = {};
 		var parent = parent || document
 		var elem = parent.getElementsByTagName('*');
 		var matched = [];
-		
-		for (var i = 0, elemLength = elem.length; i < elemLength; i++) {
-			if (elem[i].className.match(new RegExp(selector))) {
+		for (var i = 0, elemLength = elem.length; i < elemLength; i++)
+			if (elem[i].className.match(new RegExp(selector)))
 				matched.push(elem[i]);
-			}
-		}
-		
 		return matched;
 	};
 })(algo);
