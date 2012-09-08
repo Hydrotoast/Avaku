@@ -23,7 +23,7 @@ function CanvasAvatar() {
     this._width = config.WIDTH;
     this._height = config.HEIGHT;
 
-	this.base = new Base();
+	this.base = new Base('M');
 }
 
 CanvasAvatar.prototype = new LinkedList();

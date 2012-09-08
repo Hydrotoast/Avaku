@@ -29,6 +29,7 @@ LinkedList.prototype = {
 		// Get absolute path of image source
 		var img = new Image();
 		img.src = src;
+		console.log(img.src);
 		for (var iter = this.head;
 			iter != null;
 			iter = iter.next)
@@ -38,7 +39,7 @@ LinkedList.prototype = {
 	},
 	addLayer: function(src) {
 		var layer = new Layer(src);
-		if (this.length == 0) {
+		if (this.length === 0) {
 			this.head = layer;
 			this.tail = layer;
 		} else {

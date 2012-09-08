@@ -80,7 +80,7 @@ var Avaku = {};
 				var image = layer.firstChild;
 				if (image.className.indexOf(config.EQUIPPED_CLASS) == -1) {
 					image.className = config.EQUIPPED_CLASS;
-					avatar.addLayer(image.alt);
+					avatar.addLayer(image.getAttribute('data-src'));
 				
 					algo.getByClass(config.REMOVE_CLASS, item)[0].style.display = 'block';
 				}
@@ -97,7 +97,7 @@ var Avaku = {};
 					image.className = '';
 				
 					this.style.display = 'none';
-					avatar.removeLayer(image.alt);
+					avatar.removeLayer(image.getAttribute('data-src'));
 					avaku.draw();
 					return false;
 				}
@@ -108,7 +108,7 @@ var Avaku = {};
 			// RaiseLayer event handler
 			raise.addEventListener('click', function(image) {
 				return function() {
-					algo.raiseLayer(avatar, image.alt);
+					algo.raiseLayer(avatar, image.getAttribute('data-src'));
 					avaku.draw();
 					return false;
 				}
@@ -117,7 +117,7 @@ var Avaku = {};
 			// LowerLayer event handler
 			lower.addEventListener('click', function(image) {
 				return function() {
-					algo.lowerLayer(avatar, image.alt);
+					algo.lowerLayer(avatar, image.getAttribute('data-src'));
 					avaku.draw();
 					return false;
 				}

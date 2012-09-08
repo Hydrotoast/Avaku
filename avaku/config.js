@@ -17,8 +17,8 @@
 var config = {
 	// Image Settings
 	IMAGE_PATH: './images',
-	HEIGHT: 270,
-	WIDTH: 150,
+	HEIGHT: 220,
+	WIDTH: 160,
 	EXT: 'png',
 	
 	// Event-Bindings

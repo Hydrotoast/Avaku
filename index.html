@@ -10,9 +10,21 @@
 <script type="text/javascript" src="avaku/base.js"></script>
 <script type="text/javascript" src="avaku/layer.js"></script>
 <script type="text/javascript" src="avaku/avaku.js"></script>
+<script type="text/javascript" src="avaku/inventory.js"></script>
 
+<script type="text/javascript" src="images/Elidiun/elidiun.js"></script>
 <script type="text/javascript">
-window.addEventListener('DOMContentLoaded', Avaku.init);
+function init() {
+	var ElidiunFactory = new Elidiun();
+	var inventory = new Inventory();
+	inventory.getItems(ElidiunFactory, 'head', null);
+	inventory.getItems(ElidiunFactory, 'upper', null);
+	inventory.getItems(ElidiunFactory, 'lower', null);
+	inventory.printHtml(document.getElementById('inventory'), ['head', 'upper',
+	'lower']);
+	Avaku.init();
+}
+window.addEventListener('DOMContentLoaded', init);
 </script>
 
 <style type="text/css">
@@ -81,9 +93,9 @@ window.addEventListener('DOMContentLoaded', Avaku.init);
 		display: block;
 		float: left;
 		position: relative;
-		height: 270px;
-		width: 150px;
-		margin-right: 15px;
+		height: 165px;
+		width: 120px;
+		margin: 0 15px 15px 0;
 		overflow: hidden;
 		background-color: #F6F6F6;
 		border: 1px solid #E0E0E0;
@@ -142,11 +154,11 @@ window.addEventListener('DOMContentLoaded', Avaku.init);
 <div id="wrap">
 	
 	<div id="avatars">
-		<canvas id="avatar" width="150" height="270">
+		<canvas id="avatar" width="160" height="220">
 			<div id="bc_avatar"></div>
 		</canvas>
 		<div id="dom_compiled">
-			<img id="compiled" src="images/base_f.png" width="150" height="270" />
+			<img id="compiled" src="images/Elidiun/Base_normalF.png" width="160" height="220" />
 		</div>
 	</div>
 	
@@ -168,30 +180,6 @@ window.addEventListener('DOMContentLoaded', Avaku.init);
 	<p>Equip some items. Remove them. Control the layering order.</p>
 	
 	<div id="inventory">
-		<div class="item">
-			<a href="#" class="remove">x</a><a href="#" class="raise">+</a><a href="#" class="lower">-</a>
-			<a href="#" class="layer"><img src="images/male/turd_hat.gif" alt="images/male/turd_hat.gif" /></a>
-		</div>
-		
-		<div class="item">
-			<a href="#" class="remove">x</a><a href="#" class="raise">+</a><a href="#" class="lower">-</a>
-			<a href="#" class="layer"><img src="images/male/pink_shorts.gif" alt="images/male/pink_shorts.gif" /></a>
-		</div>
-		
-		<div class="item">
-			<a href="#" class="remove">x</a><a href="#" class="raise">+</a><a href="#" class="lower">-</a>
-			<a href="#" class="layer"><img src="images/male/elephant.gif" alt="images/male/elephant.gif" /></a>
-		</div>
-		
-		<div class="item">
-			<a href="#" class="remove">x</a><a href="#" class="raise">+</a><a href="#" class="lower">-</a>
-			<a href="#" class="layer"><img src="images/male/blue_shirt.gif" alt="images/male/blue_shirt.gif" /></a>
-		</div>
-	
-		<div class="item">
-			<a href="#" class="remove">x</a><a href="#" class="raise">+</a><a href="#" class="lower">-</a>
-			<a href="#" class="layer"><img src="images/male/black_jacket.gif" alt="images/male/black_jacket.gif" /></a>
-		</div>
 	</div>
 	
 	<p id="instructions">

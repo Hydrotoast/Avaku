@@ -33,22 +33,30 @@ Inventory.prototype = {
 	},
 	printHtml: function(elem, category) {
 		var matrixHtml = '';
-		for (i in this.matrix[category]) {
-			if (this.matrix[category][i] === undefined)
-				throw new Error('Invalid item: ' + this.matrix[i]);
+		var items = [];
+		if (Object.prototype.toString.call(category) === '[object Array]')
+			for (var i in category) {
+				items = items.concat(this.matrix[category[i]]);
+			}
+		else
+			items = this.matrix[category];
+		for (var i in items) {
+			if (items[i] === undefined)
+				throw new Error('Invalid item: ' + items[i]);
 			var html =
 				'<div class="item">' +
 					'<a href="#" class="remove">x</a>' +
 					'<a href="#" class="raise">+</a>' +
 					'<a href="#" class="lower">-</a>' +
 					'<a href="#" class="layer">' +
-						'<img src="' + this.matrix[category][i] + 
-						'" data-src="' + this.matrix[category][i] + '" />' +
+						'<img src="' + items[i].source + 
+						'" data-src="' + items[i].source +
+						'" width="120" height="165" />' +
 					'</a>' +
 				'</div>';
 			matrixHtml += html;
 		}
-		elem.innerHTML = matrixHtml;
+		elem.innerHTML = elem.innerHTML + matrixHtml;
 	}
 };
 

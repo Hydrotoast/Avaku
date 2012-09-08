@@ -24,12 +24,12 @@ function Layer(src) {
 	this.next = null;
 	
 	// Remote Data
-    this.id = 2320;
-    this.type = 'm';
+	this.id = 2320;
+	this.type = 'm';
 	
     // Local Data
 	this._img = new Image();
-    this._img.src = src;
+	this._img.src = src;
 	this._img.style.position = 'absolute';
 	this._img.style.width = 130;
 	this._img.style.left = 0;
@@ -41,7 +41,6 @@ Layer.prototype = {
 		return this._img.src;
 	},
 	update: function() {
-
 	},
 	draw: function() {
 		if (ctx) {
