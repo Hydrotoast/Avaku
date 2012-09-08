@@ -145,9 +145,9 @@ var Avaku = {};
 	avaku.init = function() {
 		itemFactory = new Elidiun();
 		inventory = new Inventory(itemFactory);
-		inventory.getItems('head', null);
-		inventory.getItems('upper', null);
-		inventory.getItems('lower', null);
+		inventory.getItems(null, 'head');
+		inventory.getItems(null, 'upper');
+		inventory.getItems(null, 'lower');
 		inventory.printHtml(document.getElementById('inventory'), ['head', 'upper', 'lower']);
 
 		avaku.initVariables();

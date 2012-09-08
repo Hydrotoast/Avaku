@@ -1,8 +1,3 @@
-// Mock object with Elidiun avatars
-var Item = function(source) {
-	this.source = source;
-}
-
 var Elidiun = function() {
 	this.matrix = {};
 	this.matrix['head'] = [
@@ -28,11 +23,12 @@ var Elidiun = function() {
 		new Item('images/Elidiun/items/converseblack.png')];
 }
 
-Elidiun.prototype = {
-	getItems: function(category, user) {
-		return this.matrix[category];
-	},
-	sendItems: function(items) {
-		// Do nothing
-	}
+Elidiun.prototype = ItemFactory;
+
+Elidiun.prototype.getItems = function(user, category) {
+	return this.matrix[category];
+};
+
+Elidiun.prototype.sendItems = function(user, items) {
+	// Do nothing
 };

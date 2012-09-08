@@ -27,9 +27,9 @@ function Inventory(itemFactory) {
 }
 
 Inventory.prototype = {
-	getItems: function(category, user) {
+	getItems: function(user, category) {
 		if (this.matrix[category].length === 0) {
-			var items = this.itemFactory.getItems(category, user);
+			var items = this.itemFactory.getItems(user, category);
 			this.matrix[category] = items;
 		}
 	},
