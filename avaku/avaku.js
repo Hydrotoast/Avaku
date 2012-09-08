@@ -52,7 +52,7 @@ var Avaku = {};
 				var image = algo.getByClass(config.LAYER_CLASS, items[i])[0].firstChild;
 				if (image != null && image.className.indexOf(config.EQUIPPED_CLASS) != -1) {
 					image.className = '';
-					avatar.removeLayer(image.alt);
+					avatar.removeLayer(image.getAttribute('data-src'));
 					
 					algo.getByClass(config.REMOVE_CLASS, items[i])[0].style.display = 'none';
 				}
