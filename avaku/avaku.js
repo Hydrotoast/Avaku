@@ -22,7 +22,17 @@ var avatar = null,
 
 var Avaku = {};
 (function(avaku) {
+	avaku.itemFactory = null;
+	avaku.inventory = null;
+
 	avaku.initVariables = function() {
+		avaku.itemFactory = new Elidiun();
+		avaku.inventory = new Inventory(avaku.itemFactory);
+		avaku.inventory.getItems(avaku.user, 'head');
+		avaku.inventory.getItems(avaku.user, 'upper');
+		avaku.inventory.getItems(avaku.user, 'lower');
+		avaku.inventory.printHtml(document.getElementById('inventory'), ['head', 'upper', 'lower']);
+
 		canvas = document.getElementById(config.AVATAR_ID);
 		bc_avatar = document.getElementById(config.BC_AVATAR_ID);
 		
@@ -130,26 +140,10 @@ var Avaku = {};
 	};
 	
 	avaku.apply = function() {
-		var json = avatar.jsonify();
-		var xhr = (window.XMLHttpRequest) ? new XMLHttpRequest : new ActiveXObject('Microsoft.XMLHTTP');
-		xhr.open('POST', config.AVATAR_SCRIPT_PATH, false);
-		xhr.addEventListener('load', function() {
-			return xhr.status === 200;
-		}, false);
-		xhr.setRequestHeader('Content-Type', 'application/x-www-url-form-urlencoded');
-		xhr.setRequestHeader('Content-Length', json.length);
-		xhr.setRequestHeader('Connection', 'close');
-		xhr.send(json);
+		itemFactory.sendItems(avaku.user, avatar);
 	};
 
 	avaku.init = function() {
-		itemFactory = new Elidiun();
-		inventory = new Inventory(itemFactory);
-		inventory.getItems(null, 'head');
-		inventory.getItems(null, 'upper');
-		inventory.getItems(null, 'lower');
-		inventory.printHtml(document.getElementById('inventory'), ['head', 'upper', 'lower']);
-
 		avaku.initVariables();
 		avaku.initHandlers();
 		

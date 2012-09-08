@@ -78,7 +78,7 @@ var algo = {};
 	* Retrieves all DOM elements with the given class
 	* @param{selector}	Class to search for
 	* @param{parent}	Parent of the selector to search from
-	* @return Array of matching elements
+	* @return			Array of matching elements
 	*/
 	_.getByClass = function(selector, parent) {
 		var parent = parent || document
@@ -89,4 +89,13 @@ var algo = {};
 				matched.push(elem[i]);
 		return matched;
 	};
+
+	/**
+	* Checks whether a specified object is an array
+	* @param{obj}	Object to check for an array
+	* @return		True if object is an array
+	*/
+	_.isArray = function(obj) {
+		return Object.prototype.toString.call(obj) === '[object Array]';
+	}
 })(algo);

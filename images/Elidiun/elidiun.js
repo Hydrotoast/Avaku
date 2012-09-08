@@ -29,6 +29,6 @@ Elidiun.prototype.getItems = function(user, category) {
 	return this.matrix[category];
 };
 
-Elidiun.prototype.sendItems = function(user, items) {
+Elidiun.prototype.sendItems = function(user, avatar) {
 	// Do nothing
 };

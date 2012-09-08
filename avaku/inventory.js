@@ -36,12 +36,13 @@ Inventory.prototype = {
 	printHtml: function(elem, category) {
 		var matrixHtml = '';
 		var items = [];
-		if (Object.prototype.toString.call(category) === '[object Array]')
-			for (var i in category) {
+		if (algo.isArray(category)) {
+			var categories = category;
+			for (var i in categories)
 				items = items.concat(this.matrix[category[i]]);
-			}
-		else
+		} else {
 			items = this.matrix[category];
+		}
 		for (var i in items) {
 			if (items[i] === undefined)
 				throw new Error('Invalid item: ' + items[i]);
