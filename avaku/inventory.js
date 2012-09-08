@@ -14,7 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-function Inventory() {
+function Inventory(itemFactory) {
+	this.itemFactory = itemFactory;
+
 	// First index is the category
 	// Second is the item
 	this.matrix = {}
@@ -25,9 +27,9 @@ function Inventory() {
 }
 
 Inventory.prototype = {
-	getItems: function(itemFactory, category, user) {
+	getItems: function(category, user) {
 		if (this.matrix[category].length === 0) {
-			var items = itemFactory.getItems(category, user);
+			var items = this.itemFactory.getItems(category, user);
 			this.matrix[category] = items;
 		}
 	},

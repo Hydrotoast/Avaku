@@ -9,19 +9,12 @@
 <script type="text/javascript" src="avaku/avatar.js"></script>
 <script type="text/javascript" src="avaku/base.js"></script>
 <script type="text/javascript" src="avaku/layer.js"></script>
-<script type="text/javascript" src="avaku/avaku.js"></script>
-<script type="text/javascript" src="avaku/inventory.js"></script>
-
 <script type="text/javascript" src="images/Elidiun/elidiun.js"></script>
+<script type="text/javascript" src="avaku/inventory.js"></script>
+<script type="text/javascript" src="avaku/avaku.js"></script>
+
 <script type="text/javascript">
 function init() {
-	var ElidiunFactory = new Elidiun();
-	var inventory = new Inventory();
-	inventory.getItems(ElidiunFactory, 'head', null);
-	inventory.getItems(ElidiunFactory, 'upper', null);
-	inventory.getItems(ElidiunFactory, 'lower', null);
-	inventory.printHtml(document.getElementById('inventory'), ['head', 'upper',
-	'lower']);
 	Avaku.init();
 }
 window.addEventListener('DOMContentLoaded', init);

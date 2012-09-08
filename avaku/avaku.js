@@ -143,6 +143,13 @@ var Avaku = {};
 	};
 
 	avaku.init = function() {
+		itemFactory = new Elidiun();
+		inventory = new Inventory(itemFactory);
+		inventory.getItems('head', null);
+		inventory.getItems('upper', null);
+		inventory.getItems('lower', null);
+		inventory.printHtml(document.getElementById('inventory'), ['head', 'upper', 'lower']);
+
 		avaku.initVariables();
 		avaku.initHandlers();
 		
