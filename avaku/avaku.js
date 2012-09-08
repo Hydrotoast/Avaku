@@ -38,7 +38,7 @@ var Avaku = {};
 		avaku.inventory.getItems(avaku.user, 'head');
 		avaku.inventory.getItems(avaku.user, 'upper');
 		avaku.inventory.getItems(avaku.user, 'lower');
-		avaku.inventory.printHtml(document.getElementById('inventory'), ['head', 'upper', 'lower']);
+		avaku.inventory.printHtml(document.getElementById(config.INVENTORY_ID), ['head', 'upper', 'lower']);
 
 		avaku.canvas = document.getElementById(config.AVATAR_ID);
 		avaku.bc_avatar = document.getElementById(config.BC_AVATAR_ID);
@@ -126,7 +126,7 @@ var Avaku = {};
 			raise.addEventListener('click', function(image) {
 				return function() {
 					algo.raiseLayer(avaku.avatar, image.getAttribute('data-src'));
-					avaku.avaku.draw();
+					avaku.draw();
 					return false;
 				}
 			}(image));
@@ -135,7 +135,7 @@ var Avaku = {};
 			lower.addEventListener('click', function(image) {
 				return function() {
 					algo.lowerLayer(avaku.avatar, image.getAttribute('data-src'));
-					avaku.avaku.draw();
+					avaku.draw();
 					return false;
 				}
 			}(image));
@@ -144,6 +144,7 @@ var Avaku = {};
 
 	avaku.draw = function() {
 		avaku.avatar.render();
+		avaku.inventory.printEquipped(document.getElementById(config.EQUIPPED_ID));
 	};
 	
 	avaku.apply = function() {

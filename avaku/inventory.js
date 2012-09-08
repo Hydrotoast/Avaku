@@ -33,6 +33,27 @@ Inventory.prototype = {
 			this.matrix[category] = items;
 		}
 	},
+	printEquipped: function(elem) {
+		equippedHtml = '';
+		equipped = [];
+		algo.for_each(Avaku.avatar, function(layer) {
+			var html =
+				'<div class="item">' +
+					'<a href="#" class="remove">x</a>' +
+					'<a href="#" class="raise">+</a>' +
+					'<a href="#" class="lower">-</a>' +
+					'<a href="#" class="layer">' +
+						'<img src="' + layer._img.src + 
+						'" data-src="' + layer._img.src +
+						'" width="120" height="165" />' +
+					'</a>' +
+				'</div>';
+			equipped.unshift(html);
+		});
+		for (i in equipped)
+			equippedHtml += equipped[i];
+		elem.innerHTML = equippedHtml;
+	},
 	printHtml: function(elem, category) {
 		var matrixHtml = '';
 		var items = [];

@@ -24,6 +24,10 @@ var config = {
 	// Event-Bindings
 	AVATAR_ID: 'avatar',
 	BC_AVATAR_ID: 'bc_avatar',
+
+	INVENTORY_ID: 'inventory',
+	EQUIPPED_ID: 'equipped',
+
 	ITEM_CLASS: 'item',
 	LAYER_CLASS: 'layer',
 	EQUIPPED_CLASS: 'equipped',
