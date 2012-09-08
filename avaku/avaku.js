@@ -79,16 +79,16 @@ var Avaku = {};
 		});
 
 		for (var i in items)
-			avaku.bindItemHandler(items, i);
+			avaku.bindItemHandler(items[i]);
 	};
 	
-	avaku.bindItemHandler = function(items, i) {
-		var layer = algo.getByClass(config.LAYER_CLASS, items[i])[0];
+	avaku.bindItemHandler = function(item) {
+		var layer = algo.getByClass(config.LAYER_CLASS, item)[0];
 		var image = layer.firstChild;
 		
-		var remove = algo.getByClass(config.REMOVE_CLASS, items[i])[0]
-		var raise = algo.getByClass(config.RAISE_CLASS, items[i])[0]
-		var lower = algo.getByClass(config.LOWER_CLASS, items[i])[0]
+		var remove = algo.getByClass(config.REMOVE_CLASS, item)[0]
+		var raise = algo.getByClass(config.RAISE_CLASS, item)[0]
+		var lower = algo.getByClass(config.LOWER_CLASS, item)[0]
 		
 		// EquipItem event handler
 		layer.addEventListener('click', function(item) {
@@ -105,7 +105,7 @@ var Avaku = {};
 				avaku.draw();
 				return false;
 			}
-		}(items[i]));
+		}(item));
 		
 		// UnequipItem event handler
 		remove.addEventListener('click', function(image) {
