@@ -39,5 +39,6 @@ var config = {
 	AVATAR_SCRIPT_PATH: '',
 	
 	// Advanced Settings
+	BACKWARDS_COMPATIBLE: true,
 	COMPILE_FORMAT: 'image/png; base64'
 };

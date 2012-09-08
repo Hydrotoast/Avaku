@@ -30,21 +30,19 @@ CanvasAvatar.prototype = new LinkedList();
 
 CanvasAvatar.prototype.render = function() {
 	this.clear();
-
 	this.base.draw();
-
-	algo.for_each (avatar, function(layer) {
+	algo.for_each (Avaku.avatar, function(layer) {
 		layer.draw();
 	});
 };
 
 CanvasAvatar.prototype.clear = function() {
-	canvas.width = canvas.width;
+	Avaku.canvas.width = Avaku.canvas.width;
 };
 	
 CanvasAvatar.prototype.compile = function() {
 	var compiled = document.getElementById('compiled');
-	compiled.src = canvas.toDataURL(config.COMPILE_FORMAT);
+	compiled.src = Avaku.canvas.toDataURL(config.COMPILE_FORMAT);
 };
 
 /**
@@ -56,52 +54,43 @@ function DomAvatar() {
     this._width = config.WIDTH;
     this._height = config.HEIGHT;
 
-	this.base = new Base();
+	this.base = new Base('M');
 }
 
 DomAvatar.prototype = new LinkedList();
 
 DomAvatar.prototype.render = function() {
 	this.clear();
-
 	var img = document.createElement('img');
 	img.src = this.base._img.src;
-	fragment.appendChild(img);
-
-	algo.for_each(avatar, function(layer) {
+	Avaku.fragment.appendChild(img);
+	algo.for_each(Avaku.avatar, function(layer) {
 		var img = document.createElement('img');
 		img.src = layer._img.src;
-		fragment.appendChild(img);
+		Avaku.fragment.appendChild(img);
 	});
-
-	bc_avatar.appendChild(fragment.cloneNode(true));
-	
-	while (fragment.hasChildNodes())
-		fragment.removeChild(fragment.lastChild);
+	Avaku.bc_avatar.appendChild(Avaku.fragment.cloneNode(true));
+	while (Avaku.fragment.hasChildNodes())
+		Avaku.fragment.removeChild(Avaku.fragment.lastChild);
 };
 
 DomAvatar.prototype.clear = function() {
-	while (bc_avatar.hasChildNodes()) 
-		bc_avatar.removeChild(bc_avatar.lastChild);
+	while (Avaku.bc_avatar.hasChildNodes()) 
+		Avaku.bc_avatar.removeChild(Avaku.bc_avatar.lastChild);
 };
 	
 DomAvatar.prototype.compile = function() {
 	var compiled = document.getElementById('dom_compiled');
-	
 	while (compiled.hasChildNodes()) 
 		compiled.removeChild(compiled.lastChild);
-
 	var img = document.createElement('img');
 	img = this.base._img;
-
-	fragment.appendChild(img);
-
-	algo.for_each(avatar, function(layer) {
+	Avaku.fragment.appendChild(img);
+	algo.for_each(Avaku.avatar, function(layer) {
 		var img = document.createElement('img');
-		img = layer._img;
+		img.src = layer._img.src;
 		img.style.position = 'absolute';
-		fragment.appendChild(img);
+		Avaku.fragment.appendChild(img);
 	});
-
-	compiled.appendChild(fragment.cloneNode(true));
+	compiled.appendChild(Avaku.fragment.cloneNode(true));
 };

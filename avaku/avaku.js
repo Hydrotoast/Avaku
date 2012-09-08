@@ -14,35 +14,42 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-var canvas = null, 
-	ctx = null,
-	fragment = null;
-var avatar = null,
-	bc_avatar = null;
-
 var Avaku = {};
 (function(avaku) {
+	/*
+	* Data source for items
+	*/
 	avaku.itemFactory = null;
+
+	/*
+	* Inventory handler
+	*/
 	avaku.inventory = null;
 
-	avaku.initVariables = function() {
-		avaku.itemFactory = new Elidiun();
+	avaku.canvas = null;
+	avaku.ctx = null;
+	avaku.fragment = null;
+	avaku.avatar = null;
+	avaku.bc_avatar = null;
+
+	avaku.initVariables = function(itemFactory) {
+		avaku.itemFactory = itemFactory;
 		avaku.inventory = new Inventory(avaku.itemFactory);
 		avaku.inventory.getItems(avaku.user, 'head');
 		avaku.inventory.getItems(avaku.user, 'upper');
 		avaku.inventory.getItems(avaku.user, 'lower');
 		avaku.inventory.printHtml(document.getElementById('inventory'), ['head', 'upper', 'lower']);
 
-		canvas = document.getElementById(config.AVATAR_ID);
-		bc_avatar = document.getElementById(config.BC_AVATAR_ID);
+		avaku.canvas = document.getElementById(config.AVATAR_ID);
+		avaku.bc_avatar = document.getElementById(config.BC_AVATAR_ID);
 		
-		if (canvas.getContext) {
-			ctx = canvas.getContext('2d');
-			avatar = new CanvasAvatar();
+		if (avaku.canvas.getContext && !config.BACKWARDS_COMPATIBLE) {
+			avaku.ctx = avaku.canvas.getContext('2d');
+			avaku.avatar = new CanvasAvatar();
 		} else {
-			fragment = document.createDocumentFragment();
-			avatar = new DomAvatar();
-			bc_avatar.style.position = 'relative';
+			avaku.fragment = document.createDocumentFragment();
+			avaku.avatar = new DomAvatar();
+			avaku.bc_avatar.style.position = 'relative';
 		}
 	};
 
@@ -53,7 +60,7 @@ var Avaku = {};
 		var clear = document.getElementById(config.CLEAR_ID);
 		
 		save.addEventListener('click', function() {
-			avatar.compile();
+			avaku.avatar.compile();
 			return false;
 		});
 		
@@ -62,7 +69,7 @@ var Avaku = {};
 				var image = algo.getByClass(config.LAYER_CLASS, items[i])[0].firstChild;
 				if (image != null && image.className.indexOf(config.EQUIPPED_CLASS) != -1) {
 					image.className = '';
-					avatar.removeLayer(image.getAttribute('data-src'));
+					avaku.avatar.removeLayer(image.getAttribute('data-src'));
 					
 					algo.getByClass(config.REMOVE_CLASS, items[i])[0].style.display = 'none';
 				}
@@ -90,7 +97,7 @@ var Avaku = {};
 				var image = layer.firstChild;
 				if (image.className.indexOf(config.EQUIPPED_CLASS) == -1) {
 					image.className = config.EQUIPPED_CLASS;
-					avatar.addLayer(image.getAttribute('data-src'));
+					avaku.avatar.addLayer(image.getAttribute('data-src'));
 				
 					algo.getByClass(config.REMOVE_CLASS, item)[0].style.display = 'block';
 				}
@@ -107,7 +114,7 @@ var Avaku = {};
 					image.className = '';
 				
 					this.style.display = 'none';
-					avatar.removeLayer(image.getAttribute('data-src'));
+					avaku.avatar.removeLayer(image.getAttribute('data-src'));
 					avaku.draw();
 					return false;
 				}
@@ -118,8 +125,8 @@ var Avaku = {};
 			// RaiseLayer event handler
 			raise.addEventListener('click', function(image) {
 				return function() {
-					algo.raiseLayer(avatar, image.getAttribute('data-src'));
-					avaku.draw();
+					algo.raiseLayer(avaku.avatar, image.getAttribute('data-src'));
+					avaku.avaku.draw();
 					return false;
 				}
 			}(image));
@@ -127,8 +134,8 @@ var Avaku = {};
 			// LowerLayer event handler
 			lower.addEventListener('click', function(image) {
 				return function() {
-					algo.lowerLayer(avatar, image.getAttribute('data-src'));
-					avaku.draw();
+					algo.lowerLayer(avaku.avatar, image.getAttribute('data-src'));
+					avaku.avaku.draw();
 					return false;
 				}
 			}(image));
@@ -136,7 +143,7 @@ var Avaku = {};
 	};
 
 	avaku.draw = function() {
-		avatar.render();
+		avaku.avatar.render();
 	};
 	
 	avaku.apply = function() {
@@ -144,7 +151,7 @@ var Avaku = {};
 	};
 
 	avaku.init = function() {
-		avaku.initVariables();
+		avaku.initVariables(new Elidiun());
 		avaku.initHandlers();
 		
 		avaku.draw();

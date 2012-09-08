@@ -33,10 +33,10 @@ Base.prototype = {
 
 	},
 	draw: function() {
-		if (ctx) {
-			ctx.save()
-				ctx.drawImage(this._img, 0, 0, config.WIDTH, config.HEIGHT);
-			ctx.restore();
+		if (Avaku.ctx) {
+			Avaku.ctx.save()
+				Avaku.ctx.drawImage(this._img, 0, 0, config.WIDTH, config.HEIGHT);
+			Avaku.ctx.restore();
 		}
 	}
 };
