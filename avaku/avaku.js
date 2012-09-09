@@ -59,6 +59,11 @@ var Avaku = {};
 		var save = document.getElementById(config.SAVE_ID);
 		var clear = document.getElementById(config.CLEAR_ID);
 		
+		avaku.bindButtonHandlers(save, clear);
+		avaku.bindItemHandlers(items);
+	};
+
+	avaku.bindButtonHandlers = function(save, clear) {
 		save.addEventListener('click', function() {
 			avaku.avatar.compile();
 			return false;
@@ -77,7 +82,9 @@ var Avaku = {};
 			}
 			return false;
 		});
+	};
 
+	avaku.bindItemHandlers = function(items) {
 		for (var i in items)
 			avaku.bindItemHandler(items[i]);
 	};
