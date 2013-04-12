@@ -3,53 +3,53 @@ Usage
 
 1. Specify the rendered avatar position
 
-	<div id="avatars">
-		<canvas id="avatar" width="160" height="220">
-			<div id="bc_avatar"></div>
-		</canvas>
-		<div id="dom_compiled">
-			<img id="compiled" src="images/Elidiun/Base_normalF.png" width="160" height="220" />
-		</div>
+<div id="avatars">
+	<canvas id="avatar" width="160" height="220">
+		<div id="bc_avatar"></div>
+	</canvas>
+	<div id="dom_compiled">
+		<img id="compiled" src="images/Elidiun/Base_normalF.png" width="160" height="220" />
 	</div>
+</div>
 
 2. Specify an **equipped** section
 
-	<div id="equipped">
-	</div>
+<div id="equipped">
+</div>
 
 3. Specify an **inventory** section
 
-	<div id="inventory">
-	</div>
+<div id="inventory">
+</div>
 
 4. Specify **save** and **clear** operations
 
-	<div id="options">
-		<a href="#" id="save" >Save</a>
-		<a href="#" id="clear">Clear</a>
-	</div>
+<div id="options">
+	<a href="#" id="save" >Save</a>
+	<a href="#" id="clear">Clear</a>
+</div>
 
 5. Include the necessary scripts into your document
 
-	<script type="text/javascript" src="avaku/config.js"></script>
-	<script type="text/javascript" src="avaku/linkedlist.js"></script>
-	<script type="text/javascript" src="avaku/algo.js"></script>
-	<script type="text/javascript" src="avaku/avatar.js"></script>
-	<script type="text/javascript" src="avaku/base.js"></script>
-	<script type="text/javascript" src="avaku/layer.js"></script>
-	<script type="text/javascript" src="avaku/itemfactory.js"></script>
-	<script type="text/javascript" src="images/Elidiun/elidiun.js"></script>
-	<script type="text/javascript" src="avaku/inventory.js"></script>
-	<script type="text/javascript" src="avaku/avaku.js"></script>
+<script type="text/javascript" src="avaku/config.js"></script>
+<script type="text/javascript" src="avaku/linkedlist.js"></script>
+<script type="text/javascript" src="avaku/algo.js"></script>
+<script type="text/javascript" src="avaku/avatar.js"></script>
+<script type="text/javascript" src="avaku/base.js"></script>
+<script type="text/javascript" src="avaku/layer.js"></script>
+<script type="text/javascript" src="avaku/itemfactory.js"></script>
+<script type="text/javascript" src="images/Elidiun/elidiun.js"></script>
+<script type="text/javascript" src="avaku/inventory.js"></script>
+<script type="text/javascript" src="avaku/avaku.js"></script>
 
 6. Initialize the scripts
 
-	<script type="text/javascript">
-	function init() {
-		Avaku.init();
-	}
-	window.addEventListener('DOMContentLoaded', init);
-	</script>
+<script type="text/javascript">
+function init() {
+	Avaku.init();
+}
+window.addEventListener('DOMContentLoaded', init);
+</script>
 
 Adding Item Sources
 =====================
