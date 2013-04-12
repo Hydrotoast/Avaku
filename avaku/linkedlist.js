@@ -30,7 +30,7 @@ LinkedList.prototype = {
 		var img = new Image();
 		img.src = src;
 		for (var iter = this.head;
-			iter != null;
+			iter !== null;
 			iter = iter.next)
 			if (iter.source() === img.src)
 				return iter;
@@ -54,11 +54,11 @@ LinkedList.prototype = {
 		img.src = src;
 		if (img.src === this.head.source()) {
 			this.head = this.head.next;
-			if (this.head != null)
+			if (this.head !== null)
 				this.head.prev = null;
 		} else if (img.src === this.tail.source()) {
 			this.tail = this.tail.prev;
-			if (this.tail != null)
+			if (this.tail !== null)
 				this.tail.next = null;
 		} else {
 			var layer = this.findLayer(img.src);
