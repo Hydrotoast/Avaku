@@ -15,10 +15,11 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* Canvas implementation of avatars
-* Benefits: Decoupled from CSS and fast algorithms with data-urls
-* Concerns: Backwards compatibility
-*/
+ * Canvas implementation of avatars.
+ *
+ * Benefits: Decoupled from CSS and fast algorithms with data-urls
+ * Concerns: Backwards compatibility
+ */
 function CanvasAvatar() {
     this._width = config.WIDTH;
     this._height = config.HEIGHT;
@@ -28,6 +29,9 @@ function CanvasAvatar() {
 
 CanvasAvatar.prototype = new LinkedList();
 
+/**
+ * Renders the avatar on screen.
+ */
 CanvasAvatar.prototype.render = function() {
 	this.clear();
 	this.base.draw();
@@ -36,20 +40,27 @@ CanvasAvatar.prototype.render = function() {
 	});
 };
 
+/**
+ * Clears the avatar of items.
+ */
 CanvasAvatar.prototype.clear = function() {
 	Avaku.canvas.width = Avaku.canvas.width;
 };
 	
+/**
+ * Compiles the avatar into a single image
+ */
 CanvasAvatar.prototype.compile = function() {
 	var compiled = document.getElementById('compiled');
 	compiled.src = Avaku.canvas.toDataURL(config.COMPILE_FORMAT);
 };
 
 /**
-* DOM implementation of avatars
-* Benefits: Cross-compatible
-* Concerns: Strongly coupled with CSS and slow algorithms
-*/
+ * DOM implementation of avatars.
+ *
+ * Benefits: Cross-compatible
+ * Concerns: Strongly coupled with CSS and slow algorithms
+ */
 function DomAvatar() {
     this._width = config.WIDTH;
     this._height = config.HEIGHT;
@@ -59,6 +70,9 @@ function DomAvatar() {
 
 DomAvatar.prototype = new LinkedList();
 
+/**
+ * Renders the avatar on screen.
+ */
 DomAvatar.prototype.render = function() {
 	this.clear();
 	var img = document.createElement('img');
@@ -74,11 +88,17 @@ DomAvatar.prototype.render = function() {
 		Avaku.fragment.removeChild(Avaku.fragment.lastChild);
 };
 
+/**
+ * Clears the avatar of items.
+ */
 DomAvatar.prototype.clear = function() {
 	while (Avaku.bc_avatar.hasChildNodes()) 
 		Avaku.bc_avatar.removeChild(Avaku.bc_avatar.lastChild);
 };
 	
+/**
+ * Compiles the avatar into a single image
+ */
 DomAvatar.prototype.compile = function() {
 	var compiled = document.getElementById('dom_compiled');
 	while (compiled.hasChildNodes()) 
