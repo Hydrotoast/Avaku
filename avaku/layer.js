@@ -15,9 +15,11 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* Layer with item image
-* @param{src} Source image for layer
-*/
+ * Layer with item image.
+ *
+ * @param {src}			src Source image for the layer
+ * @property {String}	source The source of the image of the layer
+ */
 function Layer(src) {
 	// Functional
 	this.prev = null;
@@ -40,8 +42,13 @@ Layer.prototype = {
 	source: function() {
 		return this._img.src;
 	},
+
 	update: function() {
 	},
+
+	/**
+	 * Draws the layer on screen.
+	 */
 	draw: function() {
 		if (Avaku.ctx) {
 			Avaku.ctx.save();
