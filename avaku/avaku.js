@@ -32,6 +32,9 @@ var Avaku = {};
 	avaku.avatar = null;
 	avaku.bc_avatar = null;
 
+	/**
+	 * Initializes Avaku global variables necessary for operation.
+	 */
 	avaku.initVariables = function(itemFactory) {
 		avaku.itemFactory = itemFactory;
 		avaku.inventory = new Inventory(avaku.itemFactory);
@@ -53,6 +56,9 @@ var Avaku = {};
 		}
 	};
 
+	/**
+	 * Initializes the initial handlers for items static handlers for buttons.
+	 */
 	avaku.initHandlers = function() {
 		var items = algo.getByClass(config.ITEM_CLASS);
 		
@@ -63,6 +69,13 @@ var Avaku = {};
 		avaku.bindItemHandlers(items);
 	};
 
+	/**
+	 * Binds static handlers to buttons.
+	 * 
+	 * @param {Element[]} items List of item elements that can be cleared
+	 * @param {Element} save	Save button element
+	 * @param {Element] clear	Clear button element
+	 */
 	avaku.bindButtonHandlers = function(items, save, clear) {
 		save.addEventListener('click', function() {
 			avaku.avatar.compile();
@@ -84,11 +97,21 @@ var Avaku = {};
 		});
 	};
 
+	/**
+	 * Binds event handlers for a set of items.
+	 * 
+	 * @param {Element[]} items	List of item elements to bind event handlers to
+	 */
 	avaku.bindItemHandlers = function(items) {
 		for (var i in items)
 			avaku.bindItemHandler(items[i]);
 	};
 	
+	/**
+	 * Binds event handlers to an item.
+	 *
+	 * @param {Element} item	The item to bind event handlers to
+	 */
 	avaku.bindItemHandler = function(item) {
 		var layer = algo.getByClass(config.LAYER_CLASS, item)[0];
 		var image = layer.firstChild;
@@ -149,6 +172,9 @@ var Avaku = {};
 		}
 	};
 
+	/**
+	 * Draws the current avatar in the browser window.
+	 */
 	avaku.draw = function() {
 		avaku.avatar.render();
 		avaku.inventory.printEquipped(document.getElementById(config.EQUIPPED_ID));
@@ -158,6 +184,9 @@ var Avaku = {};
 		itemFactory.sendItems(avaku.user, avatar);
 	};
 
+	/**
+	 * Initializes the Avaku engine.
+	 **/
 	avaku.init = function() {
 		avaku.initVariables(new Elidiun());
 		avaku.initHandlers();
