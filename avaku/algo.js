@@ -18,10 +18,11 @@ var algo = {};
 (function(_) {
 	/* Non-Modifying Sequence Operations */
 	/** 
-	* Execute a function for each layer
-	* @param{avatar}	Doubly linked list that contains layers
-	* @param{fn}		Function to execute on each layer
-	*/
+	 * Execute a function for each layer
+	 *
+	 * @param{avatar}	Doubly linked list that contains layers
+	 * @param{fn}		Function to execute on each layer
+	 */
 	_.for_each = function(avatar, fn) {
 		for (var iter = avatar.head; 
 			iter != null; 
@@ -31,11 +32,12 @@ var algo = {};
 
 	/* Modifying Sequence Operations */
 	/** 
-	* Swaps the ordinal of layers i and j
-	* @param{avatar}	Doubly linked list that contains layers
-	* @param{i}			Source of first layer
-	* @param{j}			Source of second layer
-	*/
+	 * Swaps the ordinal of layers i and j
+	 *
+	 * @param{avatar}	Doubly linked list that contains layers
+	 * @param{i}			Source of first layer
+	 * @param{j}			Source of second layer
+	 */
 	_.swapLayer = function(avatar, i, j) {
 		var i = avatar.findLayer(i),
 			j = avatar.findLayer(j);
@@ -46,10 +48,11 @@ var algo = {};
 	};
 	
 	/**
-	* Raises the ordinal of layer i
-	* @param{avatar}	Doubly linked list that contains layers
-	* @param{i} 		Source of layer to raise
-	*/
+	 * Raises the ordinal of layer i
+	 *
+	 * @param{avatar}	Doubly linked list that contains layers
+	 * @param{i} 		Source of layer to raise
+	 */
 	_.raiseLayer = function(avatar, i) {
 		var i = avatar.findLayer(i);
 		if (i === undefined || i.next === undefined)
@@ -60,10 +63,11 @@ var algo = {};
 	};
 	
 	/**
-	* Lowers the ordinal of layer i
-	* @param{avatar}	Doubly linked list that contains layers
-	* @param{i} 		Source of layer to lower
-	*/
+	 * Lowers the ordinal of layer i
+	 *
+	 * @param{avatar}	Doubly linked list that contains layers
+	 * @param{i} 		Source of layer to lower
+	 */
 	_.lowerLayer = function(avatar, i) {
 		var i = avatar.findLayer(i);
 		if (i === undefined || i.prev === undefined)
@@ -75,11 +79,11 @@ var algo = {};
 	
 	/* General Utilities */
 	/**
-	* Retrieves all DOM elements with the given class
-	* @param{selector}	Class to search for
-	* @param{parent}	Parent of the selector to search from
-	* @return			Array of matching elements
-	*/
+	 * Retrieves all DOM elements with the given class
+	 * @param{selector}	Class to search for
+	 * @param{parent}	Parent of the selector to search from
+	 * @return			Array of matching elements
+	 */
 	_.getByClass = function(selector, parent) {
 		var parent = parent || document
 		var elem = parent.getElementsByTagName('*');
@@ -91,10 +95,11 @@ var algo = {};
 	};
 
 	/**
-	* Checks whether a specified object is an array
-	* @param{obj}	Object to check for an array
-	* @return		True if object is an array
-	*/
+	 * Checks whether a specified object is an array
+	 *
+	 * @param{obj}	Object to check for an array
+	 * @return		True if object is an array
+	 */
 	_.isArray = function(obj) {
 		return Object.prototype.toString.call(obj) === '[object Array]';
 	}
