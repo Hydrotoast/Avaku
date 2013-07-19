@@ -59,11 +59,11 @@ var Avaku = {};
 		var save = document.getElementById(config.SAVE_ID);
 		var clear = document.getElementById(config.CLEAR_ID);
 		
-		avaku.bindButtonHandlers(save, clear);
+		avaku.bindButtonHandlers(items, save, clear);
 		avaku.bindItemHandlers(items);
 	};
 
-	avaku.bindButtonHandlers = function(save, clear) {
+	avaku.bindButtonHandlers = function(items, save, clear) {
 		save.addEventListener('click', function() {
 			avaku.avatar.compile();
 			return false;
