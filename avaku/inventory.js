@@ -54,7 +54,7 @@ Inventory.prototype = {
 			equippedHtml += equipped[i];
 		elem.innerHTML = equippedHtml;
 		Avaku.bindItemHandlers(
-			algo.getByClass(config.ITEM_CLASS), elem);
+			algo.getByClass(config.ITEM_CLASS, elem));
 	},
 	printHtml: function(elem, category) {
 		var matrixHtml = '';
