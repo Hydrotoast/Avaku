@@ -32,6 +32,10 @@ Base.prototype = {
 	update: function() {
 
 	},
+
+	/**
+	 * Draws the avatar.
+	 */
 	draw: function() {
 		if (Avaku.ctx) {
 			Avaku.ctx.save()
