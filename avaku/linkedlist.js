@@ -25,6 +25,11 @@ function LinkedList() {
 }
 
 LinkedList.prototype = {
+	/**
+	 * Finds a layer given the source of an image contained by the layer.
+	 *
+	 * @param {String} src Source of the image contained by the layer.
+	 */
 	findLayer: function(src) {
 		// Get absolute path of image source
 		var img = new Image();
@@ -36,6 +41,13 @@ LinkedList.prototype = {
 				return iter;
 		return null;
 	},
+
+	/**
+	 * Adds a new layer to the linked list with the source of its image 
+	 * denoted by a source string.
+	 *
+	 * @param {String} src Source string of the image
+	 */
 	addLayer: function(src) {
 		var layer = new Layer(src);
 		if (this.length === 0) {
@@ -48,6 +60,12 @@ LinkedList.prototype = {
 		}
 		this.length++;
 	},
+
+	/**
+	 * Removes the layer with the specified source from the list.
+	 *
+	 * @param {String} src Source string of the image
+	 */
 	removeLayer: function(src) {
 		// Get absolute path of image source
 		var img = new Image();
@@ -67,6 +85,12 @@ LinkedList.prototype = {
 		}
 		this.length--;
 	},
+
+	/**
+	 * Returns a jsonified version of the linked list.
+	 *
+	 * @return {String} a jsonified version of the linked list.
+	 */
 	jsonify: function() {
 		var layers = {
 			items: []

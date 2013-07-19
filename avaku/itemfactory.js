@@ -14,23 +14,50 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * An item for avatars.
+ * 
+ * @class Represents an equipable item for avatars
+ * @param {String} source The source string for the image of the item
+ */
 function Item(source) {
 	this.source = source;
 }
 
+/**
+ * Generates or loads items for the inventory.
+ *
+ * @class Represents an item factory
+ */
 function ItemFactory() {
 
 }
 
 ItemFactory.prototype = {
+	/**
+	 * Retrieves categorized items for a given user.
+	 *
+	 * @param {String} user		The user to retrieve items for
+	 * @param {String} category	The category of items to retrieve
+	 */
 	getItems: function(user, category) {
 		throw new Error('getItems() must be implemented');
 	},
+
+	/**
+	 * Saves an avatar for a given user.
+	 *
+	 * @param {String} user		The user to save an avatar for
+	 * @param {Avatar} avatar	The avatar to save.
+	 */
 	sendItems: function(user, avatar) {
 		throw new Error('sendItems() must be implemented');
 	}
 };
 
+/**
+ * An implementation of the ItemFactory.
+ */
 function AJAXFactory() {
 	this.xhr = (window.XMLHttpRequest) ? new XMLHttpRequest : new ActiveXObject('Microsoft.XMLHTTP');
 }

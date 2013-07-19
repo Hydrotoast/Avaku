@@ -14,6 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Inventory system for the avatar.
+ * 
+ * @class Represents an inventory.
+ * @param {ItemFactory} itemFactory	The factory which generates items for the
+ *		inventory.
+ */
 function Inventory(itemFactory) {
 	this.itemFactory = itemFactory;
 
@@ -27,12 +34,26 @@ function Inventory(itemFactory) {
 }
 
 Inventory.prototype = {
+	/**
+	 * Loads into the inventory a set of categorized items for a given user.
+	 *
+	 * @param {String} user		The user to fetch items for.
+	 * @param {String} category	The category of items to fetch.
+	 */
 	getItems: function(user, category) {
 		if (this.matrix[category].length === 0) {
 			var items = this.itemFactory.getItems(user, category);
 			this.matrix[category] = items;
 		}
 	},
+
+	/**
+	 * Prints the list equipped items on the screen at the specified document
+	 * element.
+	 *
+	 * @param {Element} elem The document element to print the list of 
+	 *		equipped items on.
+	 */
 	printEquipped: function(elem) {
 		equippedHtml = '';
 		equipped = [];
@@ -56,6 +77,16 @@ Inventory.prototype = {
 		Avaku.bindItemHandlers(
 			algo.getByClass(config.ITEM_CLASS, elem));
 	},
+
+	/**
+	 * Prints the list of items for a specified category on the screen at
+	 * the specified document element.
+	 *
+	 * @param {Element} elem				The document element to print 
+	 *		the list of items on.
+	 * @param {String|String[]} category	The category (categories) of
+	 *		items to print.
+	 */
 	printHtml: function(elem, category) {
 		var matrixHtml = '';
 		var items = [];
